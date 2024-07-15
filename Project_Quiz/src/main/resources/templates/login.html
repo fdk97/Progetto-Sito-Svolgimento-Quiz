@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reimposta la tua password</title>
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css}">
+    
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        header {
+            width: 100%;
+            position: fixed;
+            top: 0;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            overflow: hidden; 
+            margin: 0; 
+        }
+
+        .container {
+            width: 100%; 
+            max-width: 400px; 
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 0 auto; 
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px auto; 
+            width: 100px; 
+            height: auto; 
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #0b5ed7;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            width: 100%; 
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        .login-link {
+            margin-top: 10px;
+            display: block;
+            text-align: center;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="container">
+   
+     <a href="/home">
+            <img src="https://images.vexels.com/content/224234/preview/online-school-logo-7476ac.png" alt="Logo" class="logo">
+            </a>
+ <h1>Login</h1>
+    <!-- Aggiungi il blocco per visualizzare il messaggio di errore -->
+    <div th:if="${error}" class="error-message">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form action="/login" method="post">
+        <div class="form-group">
+            <label for="mail">Email:</label>
+            <input type="text" id="mail" name="mail" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="form-control">
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit" class="button">Login</button>
+        </div>
+    </form>
+
+    <form action="/registrazione" method="get" class="form-buttons">
+        <button type="submit" class="button">Registrati</button>
+    </form>
+
+    <div class="forgot-password">
+        <a href="/recupera_password">Hai dimenticato la password?</a>
+    </div>
+</div>
+
+</body>
+</html>

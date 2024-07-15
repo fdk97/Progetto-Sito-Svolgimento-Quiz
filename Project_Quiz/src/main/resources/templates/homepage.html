@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <style> 
+    
+    body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('https://img.freepik.com/free-vector/abstract-digital-grid-vector-black-background_53876-111550.jpg?size=626&ext=jpg&ga=GA1.1.1788614524.1719273600&semt=ais_user') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.welcome-section {
+    height: 100%;
+    font-size: 3em; /* Ingrandisce il testo di 3 volte la dimensione del font parent */
+  /* Oppure */
+  font-size: 200%; /* Ingrandisce il testo del 300% */
+}
+
+.button-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.registration, .login {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 300px;
+}
+
+.registration p, .login p {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+    text-align: right;
+}
+
+.btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover {
+    background-color: black;
+    color: white;
+}
+    
+    
+    
+    
+    
+     </style>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-section">
+            <h1>Benvenuto  </h1>
+        </div>
+        <div class="button-section">
+       <div class="button-section">
+            <div class="registration">
+                <p>Registrati ora</p>
+                <a href="registrazione.html" class="btn">Registrazione</a>
+            </div>
+            <br>
+            <div class="login">
+                <p>Esegui il login se sei già registrato</p>
+                <a href="login.html" class="btn">Login</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

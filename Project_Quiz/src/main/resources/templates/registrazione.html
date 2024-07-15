@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Registrazione</title>
+<link rel="stylesheet" href="/css/style.css">
+<style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            height: 120vh; /* Colore di sfondo aggiunto per chiarezza */
+        }
+
+  .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 90%;
+            max-width: 500px; /* Larghezza massima del contenitore */
+            margin: 20px auto; /* Margin: 20px sopra e sotto, auto ai lati per centrare */
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            text-align: center;
+			padding-bottom: 300px;
+        }
+
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #234567;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            border-radius: 10px;
+             height: 40px; 
+        }
+
+        /* Aggiunto margin-bottom per separare i campi */
+        #nome,
+        #cognome {
+            margin-bottom: 20px; /* Aggiunto spazio tra i campi */
+        }
+
+	
+        /* Stile per rendere i campi Nome e Cognome affiancati */
+        .form-inline {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .form-inline .form-group {
+            width: calc(50% - 10px); /* 50% della larghezza meno lo spazio tra i campi */
+        }
+
+        button {
+            background-color: #0b5ed7;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            width: 100%; /* Fai il bottone della stessa larghezza del contenitore */
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            display: none;  /* Nasconde il messaggio di errore di default */
+        }
+.form-group.tooltip {
+    position: relative; /* Assicura che il tooltip sia posizionato correttamente rispetto a questo elemento */
+}
+
+.form-group.tooltip input[type="password"] {
+    min-height: 40px; /* Altezza minima per il campo input */
+    box-sizing: border-box; /* Assicura che l'altezza minima includa il padding */
+    padding-right: 30px; /* Spazio extra per il tooltip a destra */
+}
+
+.form-group.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 220px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -110px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.form-group.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+        
+        .logo {
+            display: block;
+            margin: 0 auto 20px auto; /* Centra il logo e aggiunge spazio sotto di esso */
+            width: 100px; /* Regola la dimensione del logo come necessario */
+            height: auto; /* Mantiene il rapporto d'aspetto dell'immagine */
+        }
+
+    </style>
+</head>
+<body>
+	<div class="container" >
+	<a href="/home">
+            <img src="https://images.vexels.com/content/224234/preview/online-school-logo-7476ac.png" alt="Logo" class="logo">
+            </a>
+		<h1>Registrazione</h1>
+
+		<form id="registrationForm" action="/registrazioneUtente"
+			method="post" th:modelattribute="${utente}">
+			<div class="form-group">
+				<input type="hidden" id="abilitato" name="abilitato" value="true">
+				<input type="hidden" id="ruolo" name="ruolo" value="2"> <label
+					for="nome">Nome:</label> <input type="text" id="nome" name="nome"
+					class="form-control" th:field="${utente.nome}" required>
+			</div>
+
+			<div class="form-group">
+				<label for="cognome">Cognome:</label> <input type="text"
+					id="cognome" name="cognome" class="form-control"
+					th:field="${utente.cognome}" required>
+			</div>
+
+			<div class="form-group tooltip">
+				<label for="email">Email:</label> <input type="email" id="email"
+					name="email" class="form-control" th:field="${utente.mail}"
+					required>
+			</div>
+			<div th:if="${emailEsistente}">
+				<a style="color: red">Email già registrata. Prova con un'altra
+					email.</a>
+			</div>
+
+			<div class="form-group tooltip">
+				<label for="password">Password:</label> <input type="password"
+					id="password" name="password" class="form-control"
+					th:field="${utente.password_utente}"
+					pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&()_+=-])[a-zA-Z0-9!@#$%^&()_+=-]{8,}$"
+					required> <span class="tooltiptext">La password deve
+					essere lunga almeno 8 caratteri, contenere almeno una lettera
+					maiuscola, un numero e un carattere speciale.</span>
+			</div>
+
+			<div class="form-group">
+				<label for="password2">Conferma Password:</label> <input
+					type="password" id="password2" name="password2"
+					class="form-control" required>
+			</div>
+
+			<div class="error-message" id="error-message">Attenzione: Le
+				password non corrispondono!</div>
+			<div class="error-message" id="error-message-password">Attenzione:
+				La password non rispetta i criteri di sicurezza richiesti!</div>
+
+			<div class="form-group">
+				<label for="codiceDocente">Codice Docente:</label> <input
+					type="text" id="codiceDocente" name="codiceDocente"
+					class="form-control" th:field="${utente.codiceDocente}">
+			</div>
+
+			<button type="submit" class="btn btn-primary">Registrati</button>
+		</form>
+	</div>
+
+	<script>
+		document
+				.getElementById("registrationForm")
+				.addEventListener(
+						"submit",
+						function(event) {
+							var password = document.getElementById("password").value;
+							var confirmPassword = document
+									.getElementById("password2").value;
+							var errorMessage = document
+									.getElementById("error-message");
+							var errorMessagePassword = document
+									.getElementById("error-message-password");
+
+							var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&()_+=-])[a-zA-Z0-9!@#$%^&()_+=-]{8,}$/;
+
+							if (password !== confirmPassword) {
+								event.preventDefault(); // Previene l'invio del form
+								errorMessage.style.display = "block"; // Mostra il messaggio di errore
+								errorMessagePassword.style.display = "none"; // Nasconde l'altro messaggio di errore
+							} else if (!passwordPattern.test(password)) {
+								event.preventDefault(); // Previene l'invio del form
+								errorMessage.style.display = "none"; // Nasconde l'altro messaggio di errore
+								errorMessagePassword.style.display = "block"; // Mostra il messaggio di errore per la password
+							} else {
+								errorMessage.style.display = "none"; // Nasconde il messaggio di errore
+								errorMessagePassword.style.display = "none"; // Nasconde il messaggio di errore per la password
+							}
+						});
+	</script>
+</body>
+</html>
