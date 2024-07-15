@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Risultato Quiz</title>
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <style type="text/css">
+  .question-box {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .question-title {
+    font-weight: bold;
+    color: RoyalBlue;
+  }
+  .answer-label {
+    font-size: 20px;
+  }
+ 
+ </style>
+ 
+</head>
+
+
+<body>
+		<header th:insert="~{fragments/navbar.html :: menu_fragment}"></header>
+
+<div class="container mt-5">
+    <br>
+    <div  style = "background-color:PapayaWhip ; width: 100%; height: 100px;">
+    <h2 style="color:Chocolate ; padding-left: 22%" th:text="'Risultato del Quiz Su ' + ${nomeLinguaggio} + ':  Punteggio totale: ' + ${punteggio} + '/10'"><span></span></h2>
+    </div>
+    <br>
+ <form action="/post" th:object="${wrapper}">
+  <div class="question" th:each="domandaRisposta, iterStat : ${wrapper.listaDomande1} ">
+            <div style="padding-top: 50px">
+            </div>
+            
+            
+<div class="question-box">
+ 	
+  <h1 th:text="'Risposta ' + (${iterStat.index} + 1)" style = color:RoyalBlue></h1>
+
+                <h2 class="font-weight-bold" th:text="${domandaRisposta.domanda}" style = color:FireBrick></h2>
+ 	
+
+     <div class="form-check" th:class="${domandaRisposta.risposta_esatta == 1 ? 'form-check-inline alert alert-success' : (domandaRisposta.risposta_selezionata == 1 ? 'form-check-inline alert alert-danger' : '')}">
+        <input type="radio" class="form-check-input" th:name="listaDomande1[__${iterStat.index}__].risposta_selezionata" id="${domandaRisposta.id}" value="${listaDomande.risposta_esatta}" th:checked="${domandaRisposta.risposta_selezionata == 1}" disabled>
+        <label class="answer-label" th:text="${domandaRisposta.risposta_uno}" ></label>
+    </div>
+    
+    <br>
+    
+     <div class="form-check" th:class="${domandaRisposta.risposta_esatta == 2 ? 'form-check-inline alert alert-success' : (domandaRisposta.risposta_selezionata == 2 ? 'form-check-inline alert alert-danger' : '')}">
+        <input type="radio" class="form-check-input" th:name="listaDomande1[__${iterStat.index}__].risposta_selezionata" id="${domandaRisposta.id}" value="${domandaRisposta.risposta_esatta}" th:checked="${domandaRisposta.risposta_selezionata == 2}" disabled>
+        <label class="answer-label" th:text="${domandaRisposta.risposta_due}" ></label>
+    </div>
+    
+    <br>
+     <div class="form-check" th:class="${domandaRisposta.risposta_esatta == 3 ? 'form-check-inline alert alert-success' : (domandaRisposta.risposta_selezionata == 3 ? 'form-check-inline alert alert-danger' : '')}">
+        <input type="radio" class="form-check-input" th:name="listaDomande1[__${iterStat.index}__].risposta_selezionata" id="${domandaRisposta.id}" value="${domandaRisposta.risposta_esatta}" th:checked="${domandaRisposta.risposta_selezionata == 3}" disabled>
+        <label class="answer-label" th:text="${domandaRisposta.risposta_tre}" ></label>
+    </div>
+<br>
+
+     <div class="form-check" th:class="${domandaRisposta.risposta_esatta == 4 ? 'form-check-inline alert alert-success' : (domandaRisposta.risposta_selezionata == 4 ? 'form-check-inline alert alert-danger' : '')}">
+        <input type="radio" class="form-check-input" th:name="listaDomande1[__${iterStat.index}__].risposta_selezionata" id="${domandaRisposta.id}" value="${domandaRisposta.risposta_esatta}" th:checked="${domandaRisposta.risposta_selezionata == 4}" disabled>
+        <label class="answer-label" th:text="${domandaRisposta.risposta_quattro}" ></label>
+    </div>
+ 	
+ 	 </div>
+	</div>
+</form> 
+
+
+	</div>
+
+
+
+    
+    
+    
+    
+   
+    
+
+
+
+
+</body>
+</html>

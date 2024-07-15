@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inserimento domanda</title>
+
+    <!-- Inclusione di Bootstrap per lo stile -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <!-- Inclusione di un file CSS personalizzato -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Inclusione di JQuery per eventuale manipolazione DOM e funzionalità AJAX -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+		<header th:insert="~{fragments/navbar.html :: menu_fragment}"></header>
+
+
+<div class="container inserimentoDomande">
+    <!-- Inizio del form Thymeleaf -->
+    <!-- th:action specifica l'URL a cui il form invia i dati -->
+    <!-- method="post" definisce il metodo di invio del form -->
+    <!-- th:object associa il form all'oggetto del modello passato dal controller -->
+    <form th:action="@{/inserimentoDomanda}" method="post" th:object="${formDomande}">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Inserimento domande</h5>
+                
+                <!-- Sezione per la selezione del linguaggio -->
+                <div class="mb-3">
+                    Etichetta per la tendina dei linguaggi
+                    <label for="linguaggio" class="form-label">Linguaggio</label>
+                    th:field associa la selezione a formDomande.linguaggio.id
+                    class="form-control" è una classe di Bootstrap per la formattazione
+                    <select th:field="*{linguaggio.id}" class="form-control" id="linguaggio">
+					<!-- th:each itera su tutti i linguaggi disponibili passati dal controller -->
+					<!-- th:value associa il valore dell'opzione con l'ID del linguaggio -->
+					<!-- th:text mostra il nome del linguaggio come testo dell'opzione -->
+                        <option th:each="linguaggio : ${linguaggi}" 
+                                th:value="${linguaggio.id}" 
+                                th:text="${linguaggio.nomeArgomento}"></option>
+                    </select>
+                </div>
+
+                <!-- Sezione per l'inserimento della domanda -->
+                <div class="mb-3">
+                    <!-- Etichetta per il campo di testo della domanda -->
+                    <label for="inserimentoDomanda" class="form-label">Inserimento domanda</label>
+                    <!-- th:field associa l'input alla proprietà domanda di formDomande -->
+                    <input type="text" th:field="*{domanda}" class="form-control" id="inserimentoDomanda" placeholder="">
+                </div>
+
+                <!-- Sezione per l'inserimento delle risposte -->
+                <div class="container risposte">
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <!-- Etichetta per la prima risposta -->
+                            <label for="risposta_uno" class="form-label">Risposta 1</label>
+                        </div>
+                        <div class="col-md-8">
+                            <!-- th:field associa l'input alla proprietà rispostaUno di formDomande -->
+                            <input type="text" th:field="*{risposta_uno}" class="form-control" id="risposta_uno" placeholder="">
+                        </div>
+                        <div class="col-md-2 spunta">
+                            <!-- Radio button per selezionare la risposta corretta -->
+                            <!-- th:field associa il radio button alla proprietà rispostaEsatta di formDomande -->
+                            <!-- value="1" indica che questo radio button rappresenta la prima risposta -->
+                            <input class="form-check-input" type="radio" th:field="*{risposta_esatta}" value="1" id="risposta_esatta1">
+                            <label class="form-check-label" for="risposta_esatta1">Risposta corretta</label>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <!-- Etichetta per la seconda risposta -->
+                            <label for="risposta2" class="form-label">Risposta 2</label>
+                        </div>
+                        <div class="col-md-8">
+                            <!-- th:field associa l'input alla proprietà rispostaDue di formDomande -->
+                            <input type="text" th:field="*{risposta_due}" class="form-control" id="risposta_due" placeholder="">
+                        </div>
+                        <div class="col-md-2 spunta">
+                            <!-- Radio button per selezionare la risposta corretta -->
+                            <!-- value="2" indica che questo radio button rappresenta la seconda risposta -->
+                            <input class="form-check-input" type="radio" th:field="*{risposta_esatta}" value="2" id="risposta_esatta2">
+                            <label class="form-check-label" for="risposta_esatta2">Risposta corretta</label>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <!-- Etichetta per la terza risposta -->
+                            <label for="risposta3" class="form-label">Risposta 3</label>
+                        </div>
+                        <div class="col-md-8">
+                            <!-- th:field associa l'input alla proprietà rispostaTre di formDomande -->
+                            <input type="text" th:field="*{risposta_tre}" class="form-control" id="risposta_tre" placeholder="">
+                        </div>
+                        <div class="col-md-2 spunta">
+                            <!-- Radio button per selezionare la risposta corretta -->
+                            <!-- value="3" indica che questo radio button rappresenta la terza risposta -->
+                            <input class="form-check-input" type="radio" th:field="*{risposta_esatta}" value="3" id="risposta_esatta3">
+                            <label class="form-check-label" for="risposta_esatta3">Risposta corretta</label>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <!-- Etichetta per la quarta risposta -->
+                            <label for="risposta4" class="form-label">Risposta 4</label>
+                        </div>
+                        <div class="col-md-8">
+                            <!-- th:field associa l'input alla proprietà rispostaQuattro di formDomande -->
+                            <input type="text" th:field="*{risposta_quattro}" class="form-control" id="risposta_quattro" placeholder="">
+                        </div>
+                        <div class="col-md-2 spunta">
+                            <!-- Radio button per selezionare la risposta corretta -->
+                            <!-- value="4" indica che questo radio button rappresenta la quarta risposta -->
+                            <input class="form-check-input" type="radio" th:field="*{risposta_esatta}" value="4" id="risposta_esatta4">
+                            <label class="form-check-label" for="risposta_esatta4">Risposta corretta</label>
+                        </div>
+                    </div>
+
+                    <!-- Pulsante per inviare il form -->
+                    <button type="submit" class="btn btn-primary">Crea domanda</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
